@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js')
+    navigator.serviceWorker.register('./sw.js') //  Busca de forma relativa dentro de tu repositorio
       .then(() => console.log('¡Service Worker Registrado con éxito!'))
       .catch(err => console.log('Error al registrar SW:', err));
   }
