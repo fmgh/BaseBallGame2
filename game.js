@@ -321,40 +321,47 @@ init();
 gameLoop();
 
 
-// Lógica para forzar/ofrecer la instalación de la PWA
+// Lógica robusta para forzar/ofrecer la instalación de la PWA
 let deferredPrompt;
 const installBanner = document.getElementById('pwa-install-banner');
 const acceptInstallBtn = document.getElementById('pwa-accept-btn');
 const closeInstallBtn = document.getElementById('pwa-close-btn');
 
+// Ocultar automáticamente el banner si el usuario YA está dentro de la app instalada (Standalone)
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+    if (installBanner) installBanner.style.display = 'none';
+}
+
 window.addEventListener('beforeinstallprompt', (e) => {
-    // Previene que el navegador muestre su cartel genérico tarde
+    // Evita el aviso genérico del navegador
     e.preventDefault();
-    // Guarda el evento para activarlo cuando el usuario de clic
+    // Guarda el evento para usarlo después
     deferredPrompt = e;
-    // Muestra nuestro banner personalizado inmediatamente al abrir la app
+    // Asegura que el banner sea visible si el navegador da luz verde
     if (installBanner) {
-        installBanner.classList.remove('hidden');
+        installBanner.style.display = 'block';
     }
 });
 
 if (acceptInstallBtn) {
     acceptInstallBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        // Muestra el verdadero cuadro de instalación nativo del celular
-        deferredPrompt.prompt();
-        // Espera la respuesta del usuario
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response to install: ${outcome}`);
-        // Limpiamos la variable
-        deferredPrompt = null;
-        // Ocultamos nuestro banner
-        installBanner.classList.add('hidden');
+        // Si el navegador soporta el disparo nativo, lo ejecutamos
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to install: ${outcome}`);
+            deferredPrompt = null;
+        } else {
+            // Plan de respaldo si el navegador bloquea el prompt automático (como en iOS o navegadores de escritorio)
+            alert("To install: Tap your browser's menu (⋮ or Share icon) and select 'Add to Home Screen' / 'Install App' ⚾");
+        }
+        if (installBanner) installBanner.style.display = 'none';
     });
 }
 
 if (closeInstallBtn) {
     closeInstallBtn.addEventListener('click', () => {
-        installBanner.classList.add('hidden');
+        if (installBanner) installBanner.style.display = 'none';
     });
 }
+
