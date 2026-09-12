@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Louisville Bats - Home Run Derby Premium</title>
-    <link rel="manifest" href="manifest.json">
+    <!-- Vinculación del Manifiesto corregida para tu repositorio -->
+<link rel="manifest" href="/BaseBallGame2/manifest.json">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1d1d3b">
+
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js') //  Busca de forma relativa dentro de tu repositorio
+    // Ruta absoluta apuntando exactamente a tu subcarpeta de GitHub Pages
+    navigator.serviceWorker.register('/BaseBallGame2/sw.js')
       .then(() => console.log('¡Service Worker Registrado con éxito!'))
       .catch(err => console.log('Error al registrar SW:', err));
   }
