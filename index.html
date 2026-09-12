@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Louisville Bats - Home Run Derby Premium</title>
+    <link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log('¡Service Worker Registrado con éxito!'))
+      .catch(err => console.log('Error al registrar SW:', err));
+  }
+</script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Barra de estado superior premium -->
+        <div id="top-bar">
+            <div class="hud-box">HIGH SCORE: <span id="hud-high-score">0</span></div>
+            <div id="hud-strikes-container">
+                STRIKES: <span class="strike-slot"></span><span class="strike-slot"></span><span class="strike-slot"></span>
+            </div>
+            <div style="opacity: 0.5; font-weight: bold; cursor: pointer;">║</div>
+        </div>
+
+        <!-- Canvas del estadio nocturno -->
+        <div id="canvas-wrapper">
+            <canvas id="gameCanvas" width="800" height="500"></canvas>
+        </div>
+
+        <!-- Panel de estadísticas inferior -->
+        <div id="stats-panel">
+            <div class="stat-col">
+                <span class="stat-label">Home runs</span>
+                <span id="stat-score" class="stat-value">0</span>
+            </div>
+            <div class="stat-col">
+                <span class="stat-label">High score</span>
+                <span id="stat-high" class="stat-value gold-text">0</span>
+            </div>
+            <div class="stat-col">
+                <span class="stat-label">Longest drive</span>
+                <span id="stat-drive" class="stat-value">-</span>
+            </div>
+            <div class="stat-col">
+                <span class="stat-label">Streak</span>
+                <span id="stat-streak" class="stat-value">0</span>
+            </div>
+        </div>
+
+        <!-- Pantalla de Fin de Juego (Overlay) -->
+        <div id="game-over-screen" class="overlay hidden">
+            <div class="overlay-content">
+                <h2>¡GAME OVER!</h2>
+                <p>Total Home Runs: <span id="final-score">0</span></p>
+                <p>Longest Drive: <span id="final-drive">-</span></p>
+                <button id="restart-btn">BAT AGAIN</button>
+            </div>
+        </div>
+
+        <!-- Botón táctil para móviles / clics -->
+        <button id="swing-btn">¡SWING!</button>
+        <p class="controls-hint">Press the <strong>Spacebar</strong> or the button to swing</p>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
