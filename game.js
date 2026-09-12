@@ -319,3 +319,42 @@ restartBtn.addEventListener('click', init);
 
 init();
 gameLoop();
+
+
+// Lógica para forzar/ofrecer la instalación de la PWA
+let deferredPrompt;
+const installBanner = document.getElementById('pwa-install-banner');
+const acceptInstallBtn = document.getElementById('pwa-accept-btn');
+const closeInstallBtn = document.getElementById('pwa-close-btn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Previene que el navegador muestre su cartel genérico tarde
+    e.preventDefault();
+    // Guarda el evento para activarlo cuando el usuario de clic
+    deferredPrompt = e;
+    // Muestra nuestro banner personalizado inmediatamente al abrir la app
+    if (installBanner) {
+        installBanner.classList.remove('hidden');
+    }
+});
+
+if (acceptInstallBtn) {
+    acceptInstallBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        // Muestra el verdadero cuadro de instalación nativo del celular
+        deferredPrompt.prompt();
+        // Espera la respuesta del usuario
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to install: ${outcome}`);
+        // Limpiamos la variable
+        deferredPrompt = null;
+        // Ocultamos nuestro banner
+        installBanner.classList.add('hidden');
+    });
+}
+
+if (closeInstallBtn) {
+    closeInstallBtn.addEventListener('click', () => {
+        installBanner.classList.add('hidden');
+    });
+}

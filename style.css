@@ -216,3 +216,56 @@ canvas {
     margin-top: 10px;
     cursor: pointer;
 }
+
+#pwa-install-banner {
+    position: absolute;
+    top: 60px; /* Justo debajo de la barra HUD */
+    left: 5%;
+    width: 90%;
+    background: linear-gradient(135deg, var(--bats-purple), #2a2a54);
+    border: 2px solid var(--bats-gold);
+    border-radius: 12px;
+    z-index: 99;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    animation: slideDown 0.4s ease-out;
+}
+
+#pwa-install-banner.hidden {
+    display: none !important;
+}
+
+.banner-payload {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff;
+}
+
+#pwa-accept-btn {
+    background: var(--bats-gold);
+    color: var(--bats-purple);
+    border: none;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+#pwa-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
