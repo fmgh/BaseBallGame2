@@ -1,7 +1,7 @@
 {
   "name": "Louisville Bats - Home Run Derby",
   "short_name": "Bats Derby",
-  "description": "Minijuego de bateo interactivo para los Louisville Bats.",
+  "description": "Interactive batting minigame for the Louisville Bats.",
   "start_url": "/BaseBallGame2/index.html",
   "scope": "/BaseBallGame2/",
   "display": "standalone",
@@ -10,13 +10,8 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://icons8.com",
+      "src": "game.js",
       "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "https://icons8.com",
-      "sizes": "512x512",
       "type": "image/png"
     }
   ]
